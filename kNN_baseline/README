@@ -1,0 +1,2 @@
+Execute run_prediction.m will run a kNN classifier on training dataset, it will also produce "prediction.csv" for Kaggle submission, and "myprediction" as a saved final model.
+You'll need to have a4data.mat under this directory to run the code.
