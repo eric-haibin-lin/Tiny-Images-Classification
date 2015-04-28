@@ -16,13 +16,21 @@ load a4data;
 % Convert data to doubles between 0 and 1
 % Dn = double(data_nolabel)/255;
 
-XTrain = data_train;
+%XTrain = data_train;
+%TTrain = labels_train;
+%XTest = data_test;
+
+XTrain = double(data_train)/255;
 TTrain = labels_train;
 
-XTest = data_test;
+XTrain2 = double(data_nolabel)/255;
+XTest = double(data_test)/255;
 
+XNoLabel = double(data_nolabel)/255;
+
+XPCA = [XTrain ; XNoLabel];
 % PCA model on training set, keep all eigenvectors
-[base,mean,projX] = pcaimg(XTrain', 3072);
+[base,mean,projX] = pcaimg(XPCA', 3072);
 
 [D, N] = size(XTrain');
 [D, Nt] = size(XTest');
@@ -30,11 +38,14 @@ XTest = data_test;
 X = XTrain' - repmat(mean,1,N);
 Xt = XTest' - repmat(mean,1,Nt);
 
-K = 600;
+K = 150;
 baseK = base(:,1:K);
 
-zTrain = baseK' * double(X);
-zTest = baseK' * double(Xt);
+%zTrain = baseK' * double(X);
+%zTest = baseK' * double(Xt);
+
+zTrain = baseK' * X;
+zTest = baseK' * Xt;
 
 y = knn_prediction(zTrain, TTrain, 17, zTest);
 
