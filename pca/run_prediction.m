@@ -38,7 +38,7 @@ XPCA = [XTrain ; XNoLabel];
 X = XTrain' - repmat(mean,1,N);
 Xt = XTest' - repmat(mean,1,Nt);
 
-K = 150;
+K = 20;
 baseK = base(:,1:K);
 
 %zTrain = baseK' * double(X);

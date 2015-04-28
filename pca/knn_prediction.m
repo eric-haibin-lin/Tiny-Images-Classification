@@ -8,12 +8,12 @@ function [ y ] = knn_prediction( Xtrain, ttrain, K, X )
 %       X:  M x Ni input data matrix (assume Ni number of inputs).                     
 %
 %   Outputs:
-%       y: Ni x 1 vector of probabilities (output of the classifier).
+%       y: Ni x 1 vector of predicted label.
 
 D = l2_distance(X, Xtrain); 
 [tmp, Index] = sort(D,2);
 
 KNN = Index(:,1:K); 
-y = sum(ttrain(KNN),2)/K; 
+y = mode(ttrain(KNN),2); 
 end
 
